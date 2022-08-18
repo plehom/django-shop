@@ -1,0 +1,41 @@
+{%extends 'base.html'%}
+
+{%block 'style'%}
+    {%load static%}
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+{%endblock%}
+
+{%block 'main'%}
+<div id="cont" >
+{%for i in products%}
+<ul class="col-md-6 px-4" style="list-style:none;box-shadow: 5px 10px #D3D3D3;">
+    {%if request.user.is_authenticated%}
+        <li class="navbar-right">
+            <form method="post">
+                {%csrf_token%}
+                <input name ="id" type="hidden" value="{{i.id}}">
+                <input type="submit" value="X" class="btn-danger">
+            </form>
+        </li>
+    {%endif%}
+    <li class="h3">{{i.name}}</li>
+    <li>{{i.description}}</li>
+    <li>{{i.price}}$</li>
+    <li>
+        {%if request.user.is_authenticated%}
+            <form method="post" action="cart/add/">
+                {% csrf_token %}
+                <input type = "hidden" name="id" value = "{{i.id}}">
+                <input type="submit" value="ADD TO CART" class="btn-primary"> 
+            </form>
+        {%else%}
+            <form  action="login/">
+                <input type="submit" value="ADD TO CART" class="btn-primary"> 
+            </form>
+        {%endif%}
+
+    </li>
+</ul>
+</div>
+{%endfor%}
+{%endblock%}

@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+
+{%block 'main'%}
+    {%if items|length == 0%}
+        Your cart is empty !
+    {%endif%}
+    {%for i in items%}
+    <div class="col-md-12" style="box-shadow: 5px 10px 5px #D3D3D3;display:flex;justify-content:space-around;align-items:center;margin-bottom:10px;">
+        <h2>{{i.product.name}}</h2>
+        <h2>{{i.product.price}}$</h2>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{i.id}}">
+            <input class ="btn-danger" type="submit" value="remove">
+        </form>
+    </div>
+    
+    {%endfor%}
+
+    {%if items|length > 0%}
+        
+        <a href="{% url 'checkout' %}" style="bottom:0px;">ORDER NOW</a>
+    {%endif%}
+{%endblock%}

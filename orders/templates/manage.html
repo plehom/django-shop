@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+
+{%block 'main'%}
+
+    <h1 style="color:grey;">ORDER LIST</h1>
+    
+    {% for i in order%}
+    <div style="display:flex;justify-content:space-around;align-items:center;box-shadow: 5px 10px 5px  #D3D3D3;">
+        <h2>{{i.name}}</h2>
+        <h2>{{i.surname}}</h2>
+        <h2>{{i.full_price}}$</h2>
+        <a href="{% url 'details' id=i.id %}">More</a>
+    </div>
+    {%endfor%}
+
+{%endblock%}

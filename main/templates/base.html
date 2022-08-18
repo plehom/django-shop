@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        {%load static%}
+        <link rel="stylesheet" href="{%static 'main/styles/base.css'%}">
+        {%block 'style'%}
+
+        {%endblock%}
+    </head>
+    <body>
+        <div id="topnav" class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand">ONLINE SHOP</a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="col-md-2"><a href = "/">HOME</a></li>
+                <li class="col-md-2"><a href="{%url 'cart'%}">CART</a></li>
+                {%if request.user.is_authenticated%}
+                    {%if request.user.is_superuser%}
+                    <li class="col-md-2"><a href="{% url 'manage'%}">ORDERS</a></li>
+                    <li class ="col-md-2"><a href="{%url 'create'%}">CREATE</a></li>
+                    {%endif%}
+                    <li class="col-md-2"><a href="{% url 'logout' %}">LOGOUT</a></li>
+                {% else %}
+                    <li class="col-md-2"><a href="{%url 'login'%}">LOGIN</a></li>
+                    <li class="col-md-2"><a href = "{%url 'register' %}">REGISTER</a></li>
+                {%endif%}
+                
+                
+            </ul>
+            
+        </div>
+        <div id="main">
+            {%block 'main'%}
+
+            {%endblock%}
+        </div>
+
+    </body>
+</html>

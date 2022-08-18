@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block 'main'%}
+    <h1>Name : {{order.name}}</h1>
+    <h1>Surname : {{order.surname}}</h1>
+    <h2>Address</h2>
+    <h2>{{order.country}}  {{order.city}}  {{order.address}}  {{order.zipcode}}</h2>
+    <h2> Products ordered : </h2>
+    {%for i in op%}
+    <div style="display:flex;justify-content:space-around;align-items:center;box-shadow: 5px 10px 5px  #D3D3D3;"> 
+        <h3>{{i.product.name}}</h3>
+        <h3>{{i.product.price}}</h3>
+    </div>
+    {%endfor%}
+    <h3>Full Price : {{order.full_price}}</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{order.id}}" name="id">
+        <input type ="submit" value="FINISH ORDER">
+    </form>
+
+{%endblock%}
